@@ -1,42 +1,39 @@
 ##
 ## EPITECH PROJECT, 2021
-## task01
+## Makefile
 ## File description:
-## D10
+## eh wleh ayre bel hayet
 ##
 
-SRC	=	main.c 		\
-		my_infin_add.c	\
-		len_res.c
+CPPFLAGS	=	-I ./include
 
-OBJ     =       $(SRC:.c=.o)
+CFLAGS	=	-Wall -Wextra
 
-NAME	=	infin_add
+SRC	=	src/calc.c				\
+		src/eval_expr.c			\
+		src/my_strlen.c			\
+		src/main.c				\
+		src/my_putchar.c		\
+		src/my_put_nbr.c		\
+		infin_add/my_infin_add.c\
+		infin_add/len_res		\
+		infin_add/my_putstr.c	\
+		infin_add/my_revstr.c
 
-override CFLAGS		+=	-Werror
+OBJ 	=	$(SRC:.c=.o)
 
-override CPPFLAGS	+=	-I include/
+NAME	=	eval_expr
 
-override LDFLAGS	+=	-L lib/
+all: 		$(NAME)
 
-override LDLIBS		+=	-lmy
-
-all:	$(NAME)
-
-$(NAME):	lib
 $(NAME):	$(OBJ)
-	gcc -o $(NAME) $(SRC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBS)
-
-lib:
-	make -C ./lib/my/
+	$(CC) $(OBJ) -o $(NAME)
 
 clean:
 	rm -f $(OBJ)
 
-fclean: clean
+
+fclean:	clean
 	rm -f $(NAME)
-	make fclean -C ./lib/my
 
-re:	fclean all
-
-.PHONY: lib re fclean clean all
+re: 		fclean all
