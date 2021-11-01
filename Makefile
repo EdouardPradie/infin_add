@@ -27,7 +27,14 @@ NAME	=	eval_expr
 all: 		$(NAME)
 
 $(NAME):	$(OBJ)
+<<<<<<< HEAD
 	$(CC) $(OBJ) -o $(NAME)
+=======
+	gcc -o $(NAME) $(SRC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBS) -g
+
+lib:
+	make -C ./lib/my/
+>>>>>>> 8f4769b6e195643b7a7b0bfafe3e49a481961348
 
 clean:
 	rm -f $(OBJ)
