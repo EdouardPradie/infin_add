@@ -25,7 +25,7 @@ all:	$(NAME)
 
 $(NAME):	lib
 $(NAME):	$(OBJ)
-	gcc -o $(NAME) $(SRC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBS)
+	gcc -o $(NAME) $(SRC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBS) -g
 
 lib:
 	make -C ./lib/my/

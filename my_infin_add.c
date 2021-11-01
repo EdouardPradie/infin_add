@@ -44,7 +44,7 @@ char *equality_len(char *str, int len)
             src[i] = '0';
         }
     }
-    src[len + 1] = '\0';
+    src[len] = '\0';
     return (src);
 }
 
@@ -66,7 +66,8 @@ int my_infin_add(int argc, char **argv)
     argv[2] = equality_len(my_revstr(argv[2]), len);
     int idx = 0;
     int retenue = 0;
-    char *result = malloc(sizeof(char) * (len + 1));
+    char *result;
+    result = malloc(sizeof(char) * (len + 1));
 
     for (int i = 0; i < len; i += 1) {
         idx = (n1 * char_to_int(argv[1][i]))
