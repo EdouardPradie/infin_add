@@ -1,46 +1,44 @@
 ##
 ## EPITECH PROJECT, 2021
-## Makefile
+## task01
 ## File description:
-## eh wleh ayre bel hayet
+## D10
 ##
 
-CPPFLAGS	=	-I ./include
+SRC	=	main.c 			\
+		add/my_infin_add.c	\
+		add/len_res.c		\
+		add/my_putstr.c		\
+		add/my_revstr.c
 
-CFLAGS	=	-Wall -Wextra
+OBJ     =       $(SRC:.c=.o)
 
-SRC	=	src/calc.c				\
-		src/eval_expr.c			\
-		src/my_strlen.c			\
-		src/main.c				\
-		src/my_putchar.c		\
-		src/my_put_nbr.c		\
-		infin_add/my_infin_add.c\
-		infin_add/len_res		\
-		infin_add/my_putstr.c	\
-		infin_add/my_revstr.c
+NAME	=	infin_add
 
-OBJ 	=	$(SRC:.c=.o)
+override CFLAGS		+=	-Werror
 
-NAME	=	eval_expr
+override CPPFLAGS	+=	-I include/
 
-all: 		$(NAME)
+override LDFLAGS	+=	-L lib/
 
+override LDLIBS		+=	-lmy
+
+all:	$(NAME)
+
+$(NAME):	lib
 $(NAME):	$(OBJ)
-<<<<<<< HEAD
-	$(CC) $(OBJ) -o $(NAME)
-=======
-	gcc -o $(NAME) $(SRC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBS) -g
+	gcc -o $(NAME) $(SRC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBS)
 
 lib:
 	make -C ./lib/my/
->>>>>>> 8f4769b6e195643b7a7b0bfafe3e49a481961348
 
 clean:
 	rm -f $(OBJ)
 
-
-fclean:	clean
+fclean: clean
 	rm -f $(NAME)
+	make fclean -C ./lib/my
 
-re: 		fclean all
+re:	fclean all
+
+.PHONY: lib re fclean clean all
