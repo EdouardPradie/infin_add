@@ -19,6 +19,7 @@ int my_strlen(char const *str);
 char *all_0(char *str, int len);
 int my_show_word_array(char * const *tab);
 char **my_swap_str(char *str1, char *str2, int n1, int n2);
+char *my_strcat(char *dest, char const *src);
 
 int if_neg(char *str) 
 {
@@ -62,8 +63,9 @@ char *my_infin_add(int argc, char **argv)
     int idx = 0;
     int retenue = 0;
     char *result;
-    result = malloc(sizeof(char) * (len + 1));
+    char **str3;
 
+    result = malloc(sizeof(char) * (len + 1));
     if (n1 == 1 && n2 == 1){
         for (int i = 0; i < len; i += 1) {
             idx = char_to_int(argv[1][i])
@@ -96,8 +98,7 @@ char *my_infin_add(int argc, char **argv)
         result = my_revstr(result);
         return (result);
     } else {
-        char **str3 = my_swap_str(argv[1], argv[2], n1, n2);
-        my_show_word_array(str3);
+        str3 = my_swap_str(argv[1], argv[2], n1, n2);
         argv[1] = equality_len(str3[1], len);
         argv[2] = equality_len(str3[2], len);
         for (int k = 0; k < len; k += 1) {
@@ -112,13 +113,12 @@ char *my_infin_add(int argc, char **argv)
         }
         result = add_retenue(retenue, result, len);
         result = all_0(result, len);
-        if (str3[0] == "-1")
-            result[my_strlen(result)] = '-';
+        if (**str3 == '-') {
+            result = my_strcat(result, "-");
+        }
         result = my_revstr(result);
-        free(str3);
         return (result);
     }
-    free(result);
     free(argv[1]);
     free(argv[2]);
     return 0;
