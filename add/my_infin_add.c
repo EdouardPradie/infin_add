@@ -17,9 +17,10 @@ int char_to_int(char c);
 char int_to_char(int i);
 int my_strlen(char const *str);
 char *all_0(char *str, int len);
-char **my_swap_str(char *str1, char *str2);
+int my_show_word_array(char * const *tab);
+char **my_swap_str(char *str1, char *str2, int n1, int n2);
 
-int if_neg(char *str)
+int if_neg(char *str) 
 {
     int i = 1;
 
@@ -95,11 +96,10 @@ char *my_infin_add(int argc, char **argv)
         result = my_revstr(result);
         return (result);
     } else {
-        char **str3 = my_swap_str(argv[1], argv[2]);
+        char **str3 = my_swap_str(argv[1], argv[2], n1, n2);
+        my_show_word_array(str3);
         argv[1] = equality_len(str3[1], len);
         argv[2] = equality_len(str3[2], len);
-        printf("%s\n", argv[1]);
-        printf("%s\n", argv[2]);
         for (int k = 0; k < len; k += 1) {
             idx = char_to_int(argv[1][k])
                 - char_to_int(argv[2][k]) + retenue;
@@ -109,12 +109,11 @@ char *my_infin_add(int argc, char **argv)
                 idx += 10;
             }
             result[k] = int_to_char(idx);
-            printf("%s\n", result);
         }
         result = add_retenue(retenue, result, len);
         result = all_0(result, len);
-        if (str3[0] == "1")
-            result[my_strlen(result) - 1] = '-';
+        if (str3[0] == "-1")
+            result[my_strlen(result)] = '-';
         result = my_revstr(result);
         free(str3);
         return (result);
