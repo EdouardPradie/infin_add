@@ -9,7 +9,9 @@ SRC	=	main.c 			\
 		add/my_infin_add.c	\
 		add/len_res.c		\
 		add/my_putstr.c		\
-		add/my_revstr.c
+		add/my_revstr.c		\
+		add/error.c		\
+		tools/my_swap_str.c
 
 OBJ     =       $(SRC:.c=.o)
 

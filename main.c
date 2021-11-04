@@ -8,7 +8,7 @@
 #include <stdbool.h>
 #include "include/my.h"
 
-int my_infin_add(int argc, char **argv);
+char *my_infin_add(int argc, char **argv);
 
 bool check_error(int ac, char **av)
 {
@@ -21,8 +21,9 @@ bool check_error(int ac, char **av)
 
 int main(int ac, char **av)
 {
+    char *str = my_infin_add(ac, av);
     if(check_error(ac, av))
-        my_infin_add(ac, av);
+        my_putstr(str);
     else {
         my_putstr("Invalid args\n");
         return 84;
