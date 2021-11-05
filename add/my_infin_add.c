@@ -53,6 +53,46 @@ char *add_retenue(int retenue, char *str, int len)
     return str;
 }
 
+char *simple_add(char *result, char **argv, int n1, int n2, int idx, int len, int retenue)
+{
+    for (int i = 0; i < len; i += 1) {
+        idx = char_to_int(argv[1][i])
+            + char_to_int(argv[2][i]) + retenue;
+        retenue = 0;
+        if (idx > 9) {
+            retenue += 1;
+            idx -= 10;
+        }
+        result[i] = int_to_char(idx);
+    }
+    result = add_retenue(retenue, result, len);
+    result = all_0(result, len);
+    return (result);
+}
+
+char *simple_sub(char *result, char **argv, int n1, int n2, int idx, int len, int retenue)
+{
+    char **str3;
+
+    str3 = my_swap_str(argv[1], argv[2], n1, n2);
+    argv[1] = equality_len(str3[1], len);
+    argv[2] = equality_len(str3[2], len);
+    for (int k = 0; k < len; k += 1) {
+        idx = char_to_int(argv[1][k])
+            - char_to_int(argv[2][k]) + retenue;
+        retenue = 0;
+        if (idx < 0) {
+            retenue -= 1;
+            idx += 10;
+        }
+        result[k] = int_to_char(idx);
+    }
+    result = all_0(result, len);
+    if (**str3 == '-')
+        result = my_strcat(result, "-");
+    return (result);
+}
+
 char *my_infin_add(int argc, char **argv)
 {
     int n1 = if_neg(argv[1]);
@@ -63,59 +103,19 @@ char *my_infin_add(int argc, char **argv)
     int idx = 0;
     int retenue = 0;
     char *result;
-    char **str3;
 
     result = malloc(sizeof(char) * (len + 1));
     if (n1 == 1 && n2 == 1){
-        for (int i = 0; i < len; i += 1) {
-            idx = char_to_int(argv[1][i])
-                + char_to_int(argv[2][i]) + retenue;
-            retenue = 0;
-            if (idx > 9) {
-                retenue += 1;
-                idx -= 10;
-            }
-            result[i] = int_to_char(idx);
-        }
-        result = add_retenue(retenue, result, len);
-        result = all_0(result, len);
+        result = simple_add(result, argv, n1, n2, idx, len, retenue);
         result = my_revstr(result);
         return (result);
     } else if (n1 == -1 && n2 == -1) {
-        for (int j = 0; j < len; j += 1) {
-	    idx = char_to_int(argv[1][j])
-                + char_to_int(argv[2][j]) + retenue;
-            retenue = 0;
-            if (idx > 9) {
-                retenue += 1;
-                idx -= 10;
-            }
-            result[j] = int_to_char(idx);
-        }
-        result = add_retenue(retenue, result, len);
-        result = all_0(result, len);
+        result = simple_add(result, argv, n1, n2, idx, len, retenue);
         result[my_strlen(result)] = '-';
         result = my_revstr(result);
         return (result);
     } else {
-        str3 = my_swap_str(argv[1], argv[2], n1, n2);
-        argv[1] = equality_len(str3[1], len);
-        argv[2] = equality_len(str3[2], len);
-        for (int k = 0; k < len; k += 1) {
-            idx = char_to_int(argv[1][k])
-                - char_to_int(argv[2][k]) + retenue;
-            retenue = 0;
-            if (idx < 0) {
-                retenue -= 1;
-                idx += 10;
-            }
-            result[k] = int_to_char(idx);
-        }
-        result = add_retenue(retenue, result, len);
-        result = all_0(result, len);
-        if (**str3 == '-') {
-            result = my_strcat(result, "-");
-        }
+        result = simple_sub(result, argv, n1, n2, idx, len, retenue);
         result = my_revstr(result);
         return (result);
     }

@@ -4,7 +4,7 @@
 ** File description:
 ** read the fucking name
 */
-
+#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include "../../include/my.h"
@@ -27,7 +27,7 @@ void my_putstr2(char **str, int y)
 char *my_choice(int j, int argc)
 {
     if (j != argc - 1) {
-        return (" ");
+        return ("\n");
     } else {
         return ("\n\0");
     }
@@ -37,7 +37,7 @@ int my_show_word_array(char * const *tab)
 {
     int j = 0;
 
-    while (tab[j] != 0){
+    while (tab[j] != NULL){
         j += 1;
     }
     for (int i = 0; tab[i] != 0; i += 1) {
@@ -47,28 +47,43 @@ int my_show_word_array(char * const *tab)
     return (0);
 }
 
-char **my_swap_str(char *str1, char *str2)
+char *my_neg_to_str(int neg)
 {
-    char **str3 = malloc(sizeof(char *) * 3);
-    str3[0] = malloc(sizeof(char) * 1);
-    str3[2] = malloc(sizeof(char) * strlen(str2) + 1);
-    str3[1] = malloc(sizeof(char) * strlen(str1) + 1);
-    int uno = my_strlen(all_0(str1, strlen(str1)));
-    int dos = my_strlen(all_0(str2, strlen(str2)));
+    char *str = malloc(sizeof(char) * 3);
 
+    str[1] = '1';
+    str[2] = '\0';
+    if (neg == 1)
+        str[0] = '+';
+    else
+        str[0] = '-';
+    return (str);
+}
+
+char **my_swap_str(char *str1, char *str2, int n1, int n2)
+{
+    char *strn1 = my_neg_to_str(n1);
+    char *strn2 = my_neg_to_str(n2);
+    char **str3 = malloc(sizeof(char *) * 4);
+    int uno = my_strlen(all_0(str1, my_strlen(str1)));
+    int dos = my_strlen(all_0(str2, my_strlen(str2)));
+
+    str3[0] = malloc(sizeof(char) * 3);
+    str3[2] = malloc(sizeof(char) * (my_strlen(str2) + 1));
+    str3[1] = malloc(sizeof(char) * (my_strlen(str1) + 1));
+    str3[3] = NULL;
     if (uno < dos) {
-        str3[0] = "1";
+        str3[0] = strn2;
         str3[1] = str2;
         str3[2] = str1;
-    } else if (uno == dos && str1[uno - 1] < str2[uno - 1]){
-	str3[0] = "1";
+    } else if (uno == dos && str1[uno - 1] < str2[uno - 1]) {
+        str3[0] = strn2;
         str3[1] = str2;
         str3[2] = str1;
     } else {
-	str3[0] = "0";
+        str3[0] = strn1;
         str3[1] = str1;
 	str3[2] = str2;
-}
-    my_show_word_array(str3);
+    }
     return str3;
 }
